@@ -21,12 +21,17 @@ def encode(Y1, Y2, A, B, C, s):
                     )) 
 
 def main():
-    s = Solver()            # Initialising the solver
+    s = Solver()                                            # Initialising the solver
     
-    A, B, C = Consts('A, B, C', BoolSort())
+    A, B, C = Consts('A, B, C', BoolSort())                 # Initalise inputs
+    Y1, Y2 = Consts('Y1, Y2', BoolSort())                   # Initialise outputs
+    
+    encode(Y1, Y2, A, B, C, s) 
+
+    # Circuits are equivilent if for all inputs Y1 <=> Y2
+    s.add(Y1 == Y2)
 
     ret = s.check()
-
     # check if returned values satisfy the constraints
     if ret == sat:
         print("Equations 1 and 2 are equivilent!")
